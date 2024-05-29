@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Voting Mini App</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <h1>Vote on this post</h1>
+    <button onclick="sendVote('yes')">👍 Yes</button>
+    <button onclick="sendVote('no')">👎 No</button>
+
+    <script>
+        function sendVote(vote) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const message_id = urlParams.get('message_id');
+            Telegram.WebApp.sendData(JSON.stringify({ action: 'vote', value: vote, message_id: message_id }));
+        }
+    </script>
+</body>
+</html>
