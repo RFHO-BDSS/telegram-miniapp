@@ -20,17 +20,22 @@
             const urlParams = new URLSearchParams(window.location.search);
             const token = urlParams.get('token');
             const user_id = urlParams.get('user_id');
-            const logMessage = `Sending auth data - Token: ${token}, User ID: ${user_id}`;
-            console.log(logMessage);
-            logMessage(logMessage);
-            Telegram.WebApp.sendData(JSON.stringify({ action: 'auth', token: token, user_id: user_id }));
+            const logMessageContent = `Sending auth data - Token: ${token}, User ID: ${user_id}`;
+            console.log(logMessageContent);
+            logMessage(logMessageContent);
+
+            if (Telegram.WebApp && Telegram.WebApp.sendData) {
+                Telegram.WebApp.sendData(JSON.stringify({ action: 'auth', token: token, user_id: user_id }));
+                logMessage("Data sent to bot successfully.");
+            } else {
+                logMessage("Telegram WebApp is not initialized.");
+            }
         }
 
         // Log WebView initialization
-        const initLogMessage = "Initializing Telegram WebApp";
-        console.log(initLogMessage);
-        logMessage(initLogMessage);
+        logMessage("Initializing Telegram WebApp");
         Telegram.WebApp.ready();
+        logMessage("Telegram WebApp initialized.");
     </script>
 </body>
 </html>
