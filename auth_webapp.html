@@ -24,13 +24,12 @@
             console.log(logMessageContent);
             logMessage(logMessageContent);
 
-            // Send a regular message to the bot
-            const bot_username = 'ForwadsBot'; // Replace with your bot's username
-            const text = `/auth ${token} ${user_id}`;
-
-            window.Telegram.WebApp.sendData(text);
-
-            logMessage("Data sent to bot successfully.");
+            if (Telegram.WebApp && Telegram.WebApp.sendData) {
+                Telegram.WebApp.sendData(JSON.stringify({ action: 'auth', token: token, user_id: user_id }));
+                logMessage("Data sent to bot successfully.");
+            } else {
+                logMessage("Telegram WebApp is not initialized.");
+            }
         }
 
         logMessage("Initializing Telegram WebApp");
