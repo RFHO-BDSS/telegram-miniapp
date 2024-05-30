@@ -13,8 +13,14 @@
         function authenticate() {
             const urlParams = new URLSearchParams(window.location.search);
             const token = urlParams.get('token');
-            Telegram.WebApp.sendData(JSON.stringify({ action: 'auth', token: token }));
+            const user_id = urlParams.get('user_id');
+            console.log(`Sending auth data - Token: ${token}, User ID: ${user_id}`);
+            Telegram.WebApp.sendData(JSON.stringify({ action: 'auth', token: token, user_id: user_id }));
         }
+
+        // Log WebView initialization
+        console.log("Initializing Telegram WebApp");
+        Telegram.WebApp.ready();
     </script>
 </body>
 </html>
