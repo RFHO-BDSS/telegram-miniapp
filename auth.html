@@ -8,18 +8,28 @@
 <body>
     <h1>Authenticate</h1>
     <button onclick="authenticate()">Authenticate</button>
+    <pre id="log"></pre>
 
     <script>
+        function logMessage(message) {
+            const logElement = document.getElementById('log');
+            logElement.textContent += message + '\n';
+        }
+
         function authenticate() {
             const urlParams = new URLSearchParams(window.location.search);
             const token = urlParams.get('token');
             const user_id = urlParams.get('user_id');
-            console.log(`Sending auth data - Token: ${token}, User ID: ${user_id}`);
+            const logMessage = `Sending auth data - Token: ${token}, User ID: ${user_id}`;
+            console.log(logMessage);
+            logMessage(logMessage);
             Telegram.WebApp.sendData(JSON.stringify({ action: 'auth', token: token, user_id: user_id }));
         }
 
         // Log WebView initialization
-        console.log("Initializing Telegram WebApp");
+        const initLogMessage = "Initializing Telegram WebApp";
+        console.log(initLogMessage);
+        logMessage(initLogMessage);
         Telegram.WebApp.ready();
     </script>
 </body>
